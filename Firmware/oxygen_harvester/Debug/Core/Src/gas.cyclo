@@ -1,0 +1,5 @@
+../Core/Src/gas.c:13:5:check_main_buf	5
+../Core/Src/gas.c:29:5:modder	1
+../Core/Src/gas.c:35:6:get_oxygen_params	2
+../Core/Src/gas.c:55:6:gas_bit_to_bar	1
+../Core/Src/gas.c:79:6:power_electrodes	1
