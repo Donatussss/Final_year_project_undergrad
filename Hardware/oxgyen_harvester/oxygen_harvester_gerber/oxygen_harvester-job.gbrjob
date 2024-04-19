@@ -3,14 +3,14 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "(6.0.5)"
+      "Version": "8.0.1"
     },
-    "CreationDate": "2024-03-19T18:28:54+03:00"
+    "CreationDate": "2024-04-18T20:35:38+03:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "gas_detection",
-      "GUID": "6761735f-6465-4746-9563-74696f6e2e6b",
+      "Name": "oxygen_harvester",
+      "GUID": "6f787967-656e-45f6-9861-727665737465",
       "Revision": "rev?"
     },
     "Size": {
@@ -32,47 +32,47 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "gas_detection-F_Cu.gbr",
+      "Path": "oxygen_harvester-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "gas_detection-B_Cu.gbr",
+      "Path": "oxygen_harvester-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "gas_detection-F_Paste.gbr",
+      "Path": "oxygen_harvester-F_Paste.gbr",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "gas_detection-B_Paste.gbr",
+      "Path": "oxygen_harvester-B_Paste.gbr",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "gas_detection-F_Silkscreen.gbr",
+      "Path": "oxygen_harvester-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "gas_detection-B_Silkscreen.gbr",
+      "Path": "oxygen_harvester-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "gas_detection-F_Mask.gbr",
+      "Path": "oxygen_harvester-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "gas_detection-B_Mask.gbr",
+      "Path": "oxygen_harvester-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "gas_detection-Edge_Cuts.gbr",
+      "Path": "oxygen_harvester-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

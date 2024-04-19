@@ -12,10 +12,10 @@
 #define MAINBUFSIZE 12               /*uart*/
 #define PRESSURE_RXBUFSIZE 12        /*uart*/
 #define PRESSURE_R_DROP 150          /*oxygen_pressure resistor dropper*/
-#define CONCENTRATION_THRESH 20 * 10 /*percentage lower limit*/
-#define FLOWRATE_UPPER_THRESH 5 * 10 /*litres per minute*/
+#define CONCENTRATION_THRESH 20		 /*percentage lower limit*/
+#define FLOWRATE_UPPER_THRESH 5		 /*litres per minute*/
 #define FLOWRATE_LOWER_THRESH 1      /*0.1 litres per minute*/
-#define TEMPERATURE_THRESH 60 * 10   /*degrees celsius upper limit*/
+#define TEMPERATURE_THRESH 60	     /*degrees celsius upper limit*/
 #define PRESSURE_THRESH 5            /*bar*/
 #define o2conc_ind 0
 #define o2flow_ind 1

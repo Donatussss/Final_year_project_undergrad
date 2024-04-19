@@ -41,11 +41,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   0000a84c  00000000  00000000  00042d22  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00091397  00000000  00000000  0004d56e  2**0
+ 19 .debug_str    00091388  00000000  00000000  0004d56e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00002144  00000000  00000000  000de908  2**2
+ 20 .debug_frame  00002144  00000000  00000000  000de8f8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000089  00000000  00000000  000e0a4c  2**0
+ 21 .debug_line_str 00000089  00000000  00000000  000e0a3c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1586,7 +1586,7 @@ int main(void)
  8001070:	4b45      	ldr	r3, [pc, #276]	; (8001188 <main+0x194>)
  8001072:	889b      	ldrh	r3, [r3, #4]
  8001074:	2b00      	cmp	r3, #0
- 8001076:	d06f      	beq.n	8001158 <main+0x164>
+ 8001076:	d06e      	beq.n	8001156 <main+0x162>
 	  {
 		  for (int i = 0; i < 3; i++)
  8001078:	2300      	movs	r3, #0
@@ -1634,7 +1634,7 @@ int main(void)
 		  if (oxygen_concentration < CONCENTRATION_THRESH)
  80010c0:	4b36      	ldr	r3, [pc, #216]	; (800119c <main+0x1a8>)
  80010c2:	881b      	ldrh	r3, [r3, #0]
- 80010c4:	2bc7      	cmp	r3, #199	; 0xc7
+ 80010c4:	2b13      	cmp	r3, #19
  80010c6:	d80e      	bhi.n	80010e6 <main+0xf2>
 			  /* if concentration is lower than threshold
 			   * and is increasing and electrode power is on, could be system has been powered on for the 1st time
@@ -1664,7 +1664,7 @@ int main(void)
 		  if (oxygen_flowrate > FLOWRATE_UPPER_THRESH)
  80010e6:	4b2e      	ldr	r3, [pc, #184]	; (80011a0 <main+0x1ac>)
  80010e8:	881b      	ldrh	r3, [r3, #0]
- 80010ea:	2b32      	cmp	r3, #50	; 0x32
+ 80010ea:	2b05      	cmp	r3, #5
  80010ec:	d906      	bls.n	80010fc <main+0x108>
 		  {
 			  /* if flowrate is greater than upper threshold
@@ -1728,44 +1728,45 @@ int main(void)
 		  if (oxygen_temperature > TEMPERATURE_THRESH)
  8001142:	4b18      	ldr	r3, [pc, #96]	; (80011a4 <main+0x1b0>)
  8001144:	881b      	ldrh	r3, [r3, #0]
- 8001146:	f5b3 7f16 	cmp.w	r3, #600	; 0x258
- 800114a:	d905      	bls.n	8001158 <main+0x164>
+ 8001146:	2b3c      	cmp	r3, #60	; 0x3c
+ 8001148:	d905      	bls.n	8001156 <main+0x162>
 		  {
 			  /* if temperature is greater than upper threshold
 			   * power off electrodes
 			   */
 			  power_electrodes(0, electrode_power_status);
- 800114c:	4b16      	ldr	r3, [pc, #88]	; (80011a8 <main+0x1b4>)
- 800114e:	681b      	ldr	r3, [r3, #0]
- 8001150:	4619      	mov	r1, r3
- 8001152:	2000      	movs	r0, #0
- 8001154:	f7ff feb6 	bl	8000ec4 <power_electrodes>
+ 800114a:	4b17      	ldr	r3, [pc, #92]	; (80011a8 <main+0x1b4>)
+ 800114c:	681b      	ldr	r3, [r3, #0]
+ 800114e:	4619      	mov	r1, r3
+ 8001150:	2000      	movs	r0, #0
+ 8001152:	f7ff feb7 	bl	8000ec4 <power_electrodes>
 		  }
 	  }
 
 	  if (*oxygen_pressure > PRESSURE_THRESH && oxygen_flowrate > 0)
- 8001158:	4b0a      	ldr	r3, [pc, #40]	; (8001184 <main+0x190>)
+ 8001156:	4b0b      	ldr	r3, [pc, #44]	; (8001184 <main+0x190>)
+ 8001158:	681b      	ldr	r3, [r3, #0]
  800115a:	681b      	ldr	r3, [r3, #0]
- 800115c:	681b      	ldr	r3, [r3, #0]
- 800115e:	2b05      	cmp	r3, #5
- 8001160:	f67f af57 	bls.w	8001012 <main+0x1e>
- 8001164:	4b0e      	ldr	r3, [pc, #56]	; (80011a0 <main+0x1ac>)
- 8001166:	881b      	ldrh	r3, [r3, #0]
- 8001168:	2b00      	cmp	r3, #0
- 800116a:	f43f af52 	beq.w	8001012 <main+0x1e>
+ 800115c:	2b05      	cmp	r3, #5
+ 800115e:	f67f af58 	bls.w	8001012 <main+0x1e>
+ 8001162:	4b0f      	ldr	r3, [pc, #60]	; (80011a0 <main+0x1ac>)
+ 8001164:	881b      	ldrh	r3, [r3, #0]
+ 8001166:	2b00      	cmp	r3, #0
+ 8001168:	f43f af53 	beq.w	8001012 <main+0x1e>
 	  {
 		  /* if pressure is greater than upper threshold
 		   * and there is flow into the collection tank
 		   * power off electrodes
 		   */
 		  power_electrodes(0, electrode_power_status);
- 800116e:	4b0e      	ldr	r3, [pc, #56]	; (80011a8 <main+0x1b4>)
- 8001170:	681b      	ldr	r3, [r3, #0]
- 8001172:	4619      	mov	r1, r3
- 8001174:	2000      	movs	r0, #0
- 8001176:	f7ff fea5 	bl	8000ec4 <power_electrodes>
+ 800116c:	4b0e      	ldr	r3, [pc, #56]	; (80011a8 <main+0x1b4>)
+ 800116e:	681b      	ldr	r3, [r3, #0]
+ 8001170:	4619      	mov	r1, r3
+ 8001172:	2000      	movs	r0, #0
+ 8001174:	f7ff fea6 	bl	8000ec4 <power_electrodes>
 	  HAL_ADC_Start(&hadc1);
- 800117a:	e74a      	b.n	8001012 <main+0x1e>
+ 8001178:	e74b      	b.n	8001012 <main+0x1e>
+ 800117a:	bf00      	nop
  800117c:	20000028 	.word	0x20000028
  8001180:	20000134 	.word	0x20000134
  8001184:	20000138 	.word	0x20000138
