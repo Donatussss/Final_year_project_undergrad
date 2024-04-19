@@ -27,6 +27,10 @@
 #include <string.h>
 /* GAS CODE END Includes */
 
+/* water CODE BEGIN Includes */
+#include "water.h"
+/* water CODE END Includes */
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -143,7 +147,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  waterInitialization();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -170,6 +174,20 @@ int main(void)
   while (1)
   {
 	/* GAS CODE BEGIN WHILE */
+		int chamber_min_1 = HAL_GPIO_ReadPin(Float_Chamber1_min_GPIO_Port, Float_Chamber1_min_Pin);
+		int chamber_max_1 = HAL_GPIO_ReadPin(Float_Chamber1_max_GPIO_Port, Float_Chamber1_max_Pin);
+		int chamber_min_2 = HAL_GPIO_ReadPin(Float_Chamber2_min_GPIO_Port, Float_Chamber2_min_Pin);
+		int chamber_max_2 = HAL_GPIO_ReadPin(Float_Chamber2_max_GPIO_Port, Float_Chamber2_max_Pin);
+		int chamber_min_3 = HAL_GPIO_ReadPin(Float_Chamber3_min_GPIO_Port, Float_Chamber3_min_Pin);
+		int chamber_max_3 = HAL_GPIO_ReadPin(Float_Chamber3_max_GPIO_Port, Float_Chamber3_max_Pin);
+		int chamber_min_4 = HAL_GPIO_ReadPin(Float_Chamber4_min_GPIO_Port, Float_Chamber4_min_Pin);
+		int chamber_max_4 = HAL_GPIO_ReadPin(Float_Chamber4_max_GPIO_Port, Float_Chamber4_max_Pin);
+
+		waterLevel_Chamber_1(chamber_min_1, chamber_max_1);
+		waterLevel_Chamber_2(chamber_min_2, chamber_max_2);
+		waterLevel_Chamber_3(chamber_min_3, chamber_max_3);
+		waterLevel_Chamber_4(chamber_min_4, chamber_max_4);
+
 	  HAL_ADC_Start(&hadc1);
 	  HAL_ADC_PollForConversion(&hadc1, 10);
 	  oxygen_gas_bit = HAL_ADC_GetValue(&hadc1);
