@@ -1,8 +1,14 @@
 #include "main.h"
 #include "water.h"
 #include "gas.h"
+#include "ssd1306_funcs.h"
+
+int *electrode_power_status;
 
 void waterInitialization(){
+	display_message_overwrite("Starting");
+	display1.cur_y += 10;
+	display_message("Initialization...");
 	while(1){
 		int initial_min_1 = HAL_GPIO_ReadPin(Float_Chamber1_min_GPIO_Port, Float_Chamber1_min_Pin);
 		int initial_max_1 = HAL_GPIO_ReadPin(Float_Chamber1_max_GPIO_Port, Float_Chamber1_max_Pin);
@@ -19,7 +25,8 @@ void waterInitialization(){
 		waterLevel_Chamber_4(initial_min_4, initial_max_4);
 
 		  if (initial_max_1 == 1 && initial_max_2 == 1 && initial_max_3 == 1 && initial_max_4 == 1) {
-			break;
+			  display_message_overwrite("Done Initialization...");
+			  break;
 		  }
 	}
 	power_electrodes(1, electrode_power_status);

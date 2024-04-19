@@ -21,7 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stdio.h"
+#include "ssd1306.h"
+#include "ssd1306_funcs.h"
 /* GAS CODE BEGIN Includes */
 #include "gas.h"
 #include <string.h>
@@ -51,27 +53,15 @@
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
 
+I2C_HandleTypeDef hi2c2;
+
 UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_usart2_rx;
 
 /* USER CODE BEGIN PV */
 
 /* GAS CODE BEGIN PV */
-int *electrode_power_status;
-uint16_t oxygen_concentration;
-uint16_t oxygen_flowrate;
-uint16_t oxygen_temperature;
-uint16_t oxygen_params_buf[3];
-uint16_t oxygen_params[3];
-uint32_t oxygen_gas_bit;
-uint32_t *oxygen_pressure;
-int16_t oxygen_deltas[3];
 
-/*uart_variables*/
-uint8_t rx_buf[RXBUFSIZE];
-uint8_t main_buf[MAINBUFSIZE];
-uint16_t old_pos = 0;
-uint16_t new_pos = 0;
 /* GAS CODE END PV */
 
 /* USER CODE END PV */
@@ -82,6 +72,7 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_I2C2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* GAS CODE BEGIN PFP */
@@ -94,38 +85,13 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t buf_size);
 /* USER CODE BEGIN 0 */
 
 /* GAS CODE BEGIN 0 */
-void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t buf_size)
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-    if (huart->Instance == USART2)
-    {
-        old_pos = new_pos; // Update the last position before copying new data
-
-        /* If the data in large and it is about to exceed the buffer size, we have to route it to the start of the buffer
-         * This is to maintain the circular buffer
-         * The old data in the main buffer will be overlapped
-         */
-        if (old_pos + buf_size > MAINBUFSIZE) // If the current position + new data size is greater than the main buffer
-        {
-            uint16_t datatocopy = MAINBUFSIZE - old_pos;             // find out how much space is left in the main buffer
-            memcpy((uint8_t *)main_buf + old_pos, rx_buf, datatocopy); // copy data in that remaining space
-            old_pos = 0;
-            memcpy((uint8_t *)main_buf, (uint8_t *)rx_buf + datatocopy, (buf_size - datatocopy)); // copy the remaining data
-            new_pos = (buf_size - datatocopy);                                                   // update the position
-        }
-
-        /* if the current position + new data size is less than the main buffer
-         * we will simply copy the data into the buffer and update the position
-         */
-        else
-        {
-            memcpy((uint8_t *)main_buf + old_pos, rx_buf, buf_size);
-            new_pos = buf_size + old_pos;
-        }
-
-        /* start the DMA again */
-        HAL_UARTEx_ReceiveToIdle_DMA(&huart2, (uint8_t *)rx_buf, RXBUFSIZE);
-        __HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
-    }
+	if (huart->Instance == USART2)
+	{
+		HAL_UART_Receive_DMA(huart, gasRxBuffer, GASRXBUFSIZE);
+		__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
+	}
 }
 /* GAS CODE END 0 */
 
@@ -147,7 +113,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  waterInitialization();
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -162,11 +128,18 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_Delay(1500);
+  ssd1306_Init();
+  /* WATER CODE BEGIN 2 */
+  waterInitialization();
+  /* WATER CODE END 2 */
   /* GAS CODE BEGIN 2 */
-
+  HAL_UART_Receive_DMA(&huart2, gasRxBuffer, GASRXBUFSIZE);
+  __HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
   /* GAS CODE END 2 */
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -174,102 +147,10 @@ int main(void)
   while (1)
   {
 	/* GAS CODE BEGIN WHILE */
-		int chamber_min_1 = HAL_GPIO_ReadPin(Float_Chamber1_min_GPIO_Port, Float_Chamber1_min_Pin);
-		int chamber_max_1 = HAL_GPIO_ReadPin(Float_Chamber1_max_GPIO_Port, Float_Chamber1_max_Pin);
-		int chamber_min_2 = HAL_GPIO_ReadPin(Float_Chamber2_min_GPIO_Port, Float_Chamber2_min_Pin);
-		int chamber_max_2 = HAL_GPIO_ReadPin(Float_Chamber2_max_GPIO_Port, Float_Chamber2_max_Pin);
-		int chamber_min_3 = HAL_GPIO_ReadPin(Float_Chamber3_min_GPIO_Port, Float_Chamber3_min_Pin);
-		int chamber_max_3 = HAL_GPIO_ReadPin(Float_Chamber3_max_GPIO_Port, Float_Chamber3_max_Pin);
-		int chamber_min_4 = HAL_GPIO_ReadPin(Float_Chamber4_min_GPIO_Port, Float_Chamber4_min_Pin);
-		int chamber_max_4 = HAL_GPIO_ReadPin(Float_Chamber4_max_GPIO_Port, Float_Chamber4_max_Pin);
-
-		waterLevel_Chamber_1(chamber_min_1, chamber_max_1);
-		waterLevel_Chamber_2(chamber_min_2, chamber_max_2);
-		waterLevel_Chamber_3(chamber_min_3, chamber_max_3);
-		waterLevel_Chamber_4(chamber_min_4, chamber_max_4);
-
-	  HAL_ADC_Start(&hadc1);
-	  HAL_ADC_PollForConversion(&hadc1, 10);
-	  oxygen_gas_bit = HAL_ADC_GetValue(&hadc1);
-	  gas_bit_to_bar(oxygen_gas_bit, oxygen_pressure);
-
-	  /* store oxygen parameters to buffer before updating */
-	  if (oxygen_params[o2temp_ind] != 0) /* if temperature is not equal to 0 */
-	  {
-		  for (int i = 0; i < 3; i++)
-		  {
-			  oxygen_params_buf[i] = oxygen_params[i];
-		  }
-	  }
-
-	  /* update oxygen parameters */
-	  get_oxygen_params(rx_buf, main_buf, oxygen_params);
-	  if (oxygen_params[2] != 0) /* if temperature is not equal to 0. Valid data */
-	  {
-		  for (int i = 0; i < 3; i++)
-		  {
-			  oxygen_deltas[i] = oxygen_params[i] - oxygen_params_buf[i];
-		  }
-
-		  oxygen_concentration = oxygen_params[o2conc_ind];
-		  oxygen_flowrate = oxygen_params[o2flow_ind];
-		  oxygen_temperature = oxygen_params[o2temp_ind];
-
-		  if (oxygen_concentration < CONCENTRATION_THRESH)
-		  {
-			  /* if concentration is lower than threshold
-			   * and is increasing and electrode power is on, could be system has been powered on for the 1st time
-			   * and is decreasing and electrode power is on, there is a likelihood of leakage
-			   * power off electrodes
-			   */
-			  if (oxygen_deltas[o2conc_ind] < 0 && electrode_power_status)
-			  {
-				  // indicate leakage and turning off of electrodes to oled
-				  power_electrodes(0, electrode_power_status);
-			  }
-		  }
-
-		  if (oxygen_flowrate > FLOWRATE_UPPER_THRESH)
-		  {
-			  /* if flowrate is greater than upper threshold
-			   * and electrode power is on, we should power off electrodes
-			   */
-			  power_electrodes(0, electrode_power_status);
-		  }
-		  else if (oxygen_flowrate < FLOWRATE_LOWER_THRESH)
-		  {
-			  /* if flowrate is less than lower threshold
-			   * and is increasing and electrode power is on, could be system has been powered back on
-			   * and is decreasing and electrode power is off, power on electrodes
-			   * and is decreasing and electrode power is on, there is a likelihood of leakage , power off electrodes
-			   */
-			  if (oxygen_deltas[o2flow_ind] < 0 && !electrode_power_status)
-			  {
-				  power_electrodes(1, electrode_power_status);
-			  }
-			  else if (oxygen_deltas[o2flow_ind] < 0 && !electrode_power_status)
-			  {
-				  power_electrodes(1, electrode_power_status);
-			  }
-		  }
-
-		  if (oxygen_temperature > TEMPERATURE_THRESH)
-		  {
-			  /* if temperature is greater than upper threshold
-			   * power off electrodes
-			   */
-			  power_electrodes(0, electrode_power_status);
-		  }
-	  }
-
-	  if (*oxygen_pressure > PRESSURE_THRESH && oxygen_flowrate > 0)
-	  {
-		  /* if pressure is greater than upper threshold
-		   * and there is flow into the collection tank
-		   * power off electrodes
-		   */
-		  power_electrodes(0, electrode_power_status);
-	  }
+	  get_oxygen_params();
+	  manage_chambers();
+	  display_gas_parameters();
+	  HAL_Delay(100);
 	/* GAS CODE END WHILE */
 
     /* USER CODE END WHILE */
@@ -373,6 +254,40 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
+
+}
+
+/**
+  * @brief I2C2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C2_Init(void)
+{
+
+  /* USER CODE BEGIN I2C2_Init 0 */
+
+  /* USER CODE END I2C2_Init 0 */
+
+  /* USER CODE BEGIN I2C2_Init 1 */
+
+  /* USER CODE END I2C2_Init 1 */
+  hi2c2.Instance = I2C2;
+  hi2c2.Init.ClockSpeed = 400000;
+  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C2_Init 2 */
+
+  /* USER CODE END I2C2_Init 2 */
 
 }
 

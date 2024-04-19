@@ -93,7 +93,7 @@ void Error_Handler(void);
 #define Solenoid4_Output_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+extern int *electrode_power_status;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

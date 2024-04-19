@@ -8,23 +8,37 @@
 #ifndef INC_GAS_H_
 #define INC_GAS_H_
 
-#define RXBUFSIZE 12                 /*uart*/
-#define MAINBUFSIZE 12               /*uart*/
-#define PRESSURE_RXBUFSIZE 12        /*uart*/
-#define PRESSURE_R_DROP 150          /*oxygen_pressure resistor dropper*/
-#define CONCENTRATION_THRESH 20		 /*percentage lower limit*/
-#define FLOWRATE_UPPER_THRESH 5		 /*litres per minute*/
-#define FLOWRATE_LOWER_THRESH 1      /*0.1 litres per minute*/
-#define TEMPERATURE_THRESH 60	     /*degrees celsius upper limit*/
-#define PRESSURE_THRESH 5            /*bar*/
-#define o2conc_ind 0
-#define o2flow_ind 1
-#define o2temp_ind 2
+#define GASRXBUFSIZE 12              /*uart*/
+#define PRESSURE_R_DROP 150.0        /*oxygen_pressure resistor dropper*/
+#define CONCENTRATION_THRESH 20.0	 /*percentage lower limit*/
+#define TEMPERATURE_THRESH 60.0	     /*degrees celsius upper limit*/
+#define PRESSURE_THRESH 5.0          /*bar*/
 
-int check_main_buf(uint8_t *rx_buf, uint8_t *buf, uint16_t size);
-int modder(int num);
-void get_oxygen_params(uint8_t *rx_buf, uint8_t *buf_p, uint16_t *oxygen_params);
-void gas_bit_to_bar(uint32_t gas_bit, uint32_t *gas_pressure);
-void power_electrodes(int power_direction, int *electrode_power_status);
+typedef union
+{
+	struct
+	{
+		float gas_concentration;
+		float gas_flowrate;
+		float gas_temperature;
+		float gas_pressure;
+	};
+	float gas_params[4];
+}GAS_t;
+
+extern UART_HandleTypeDef huart2;
+extern DMA_HandleTypeDef hdma_usart2_rx;
+extern I2C_HandleTypeDef hi2c2;
+extern ADC_HandleTypeDef hadc1;
+extern GAS_t gas1;
+extern uint8_t gasRxBuffer[GASRXBUFSIZE];
+
+int check_buf(void);
+void get_oxygen_params(void);
+void gas_bit_to_bar(void);
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *);
+void power_electrodes(int, int *);
+void manage_chambers(void);
+void display_gas_parameters(void);
 
 #endif /* INC_GAS_H_ */

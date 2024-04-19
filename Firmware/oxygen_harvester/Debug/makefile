@@ -61,7 +61,7 @@ main-build: oxygen_harvester.elf secondary-outputs
 
 # Tool invocations
 oxygen_harvester.elf oxygen_harvester.map: $(OBJS) $(USER_OBJS) D:\School\FEE\ 560\ Project\elec_team\Final_year_project_undergrad\Firmware\oxygen_harvester\STM32F411CEUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "oxygen_harvester.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\School\FEE 560 Project\elec_team\Final_year_project_undergrad\Firmware\oxygen_harvester\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="oxygen_harvester.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "oxygen_harvester.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\School\FEE 560 Project\elec_team\Final_year_project_undergrad\Firmware\oxygen_harvester\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="oxygen_harvester.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

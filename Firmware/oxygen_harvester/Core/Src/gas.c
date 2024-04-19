@@ -8,51 +8,57 @@
 
 #include "main.h"
 #include "gas.h"
+#include "ssd1306_funcs.h"
+#include "stdio.h"
 
+int gas_counter = 0;
+int gas_counter2 = 0;
+uint8_t gasRxBuffer[GASRXBUFSIZE];
+uint32_t gasPressureBitBuffer[1];
+GAS_t gas1;
+char oled_buf2[100];
 
-int check_main_buf(uint8_t *rx_buf, uint8_t *buf_p, uint16_t buf_size)
+int check_buf(void)
 {
-    int buf_ok = -1;
-    for (int i = 0; i < buf_size * 2; i++)
+    for (int i = 0; i < GASRXBUFSIZE; i++)
     {
-        if ((rx_buf[i % buf_size] == 0x16) && (rx_buf[(i + 1) % buf_size] == 0x09) && (rx_buf[(i + 2) % buf_size] == 0x01))
-        {
-            buf_ok = i % buf_size;
-            break;
-        }
+        if ((gasRxBuffer[i] == 0x16) && (gasRxBuffer[i + 1] == 0x09) && (gasRxBuffer[i + 2] == 0x01))
+        	return 1;
+        if (i > 0)
+        	break;
     }
 
-    return (buf_ok);
+    return 0;
 }
 
 
-int modder(int num)
+void get_oxygen_params(void)
 {
-    return (num % MAINBUFSIZE);
-}
+	gas_counter = 0;
+	gas_counter2 = 3;
 
-
-void get_oxygen_params(uint8_t *rx_buf, uint8_t *buf_p, uint16_t *oxygen_params)
-{
-    int buf_ok = check_main_buf(rx_buf, buf_p, MAINBUFSIZE);
-
-    if (buf_ok > 0)
+    if (check_buf())
     {
-        oxygen_params[0] = buf_p[modder(buf_ok + 3)] * 256 + buf_p[modder(buf_ok + 4)];
-        oxygen_params[1] = buf_p[modder(buf_ok + 5)] * 256 + buf_p[modder(buf_ok + 6)];
-        oxygen_params[2] = buf_p[modder(buf_ok + 7)] * 256 + buf_p[modder(buf_ok + 8)];
+    	while (gas_counter < 3)
+    	{
+    		gas1.gas_params[gas_counter] = (gasRxBuffer[gas_counter2 + gas_counter] * 256 + gasRxBuffer[++gas_counter2 + gas_counter])/10.0;
+    		gas_counter++;
+    	}
     }
 
     else
     {
-        oxygen_params[0] = 0;
-        oxygen_params[1] = 0;
-        oxygen_params[2] = 0;
+        while (gas_counter < 3)
+        {
+        	gas1.gas_params[gas_counter] = 0;
+        	gas_counter++;
+        }
     }
+    gas_bit_to_bar();
 }
 
 
-void gas_bit_to_bar(uint32_t gas_bit, uint32_t *gas_pressure)
+void gas_bit_to_bar(void)
 {
     /* pressure sensor output is 4-20mA and takes input of 10-30VDC
      * pressure sensor can measure 0-16bar
@@ -65,16 +71,17 @@ void gas_bit_to_bar(uint32_t gas_bit, uint32_t *gas_pressure)
      * voltage read from the drop across the resistor can be converted to pressure in bar
      * x = y/m
      * adc is 12bit thus has values from 0 to 4096
-     * adc max input voltage is 3.6V thus 0int=0V and 4096int=3.6V
-     * adc int to voltage -> voltage = int * 3.6/4096
+     * adc max input voltage is 3.3V thus 0int=0V and 4096int=3.3V
+     * adc int to voltage -> voltage = int * 3.3/4096
      * Using a resistance r:
      * 	0bar is 4ma*r -> 4ma * 150R = 0.6V
      * 	16bar is 20ma*r -> 20ma * 150R = 3V
      */
-
-    *gas_pressure = (gas_bit * (3.6 / 4096)) / (PRESSURE_R_DROP / 3);
+	HAL_ADC_Start(&hadc1);
+	HAL_ADC_PollForConversion(&hadc1, 10);
+	*gasPressureBitBuffer = HAL_ADC_GetValue(&hadc1);
+    gas1.gas_pressure = ((*gasPressureBitBuffer) * (3.3 / 4096.0)) / (PRESSURE_R_DROP / 3.0);
 }
-
 
 void power_electrodes(int power_direction, int *electrode_power_status)
 {
@@ -84,3 +91,56 @@ void power_electrodes(int power_direction, int *electrode_power_status)
 	HAL_GPIO_WritePin(Electrode4_Output_GPIO_Port, Electrode4_Output_Pin, power_direction);
 	*electrode_power_status = 1;
 }
+
+void manage_chambers(void)
+{
+	if (gas1.gas_pressure >= PRESSURE_THRESH && *electrode_power_status)
+	{
+		// stop operation as gas is full in reservoir
+		display_message_overwrite("Pressure limit reached");
+		power_electrodes(0, electrode_power_status);
+		return;
+	}
+
+	if (gas1.gas_concentration < CONCENTRATION_THRESH && *electrode_power_status)
+	{
+		// possible leakage
+		display_message_overwrite("Possible GAS leakage");
+		power_electrodes(0, electrode_power_status);
+		return;
+	}
+
+	if (gas1.gas_temperature >= TEMPERATURE_THRESH && *electrode_power_status)
+	{
+		// possible overheating
+		display_message_overwrite("Possible Overheating");
+		power_electrodes(0, electrode_power_status);
+		return;
+	}
+
+	if (gas1.gas_pressure < PRESSURE_THRESH &&
+			gas1.gas_temperature < TEMPERATURE_THRESH &&
+			!(*electrode_power_status))
+	{
+		// gas parameters within threshold
+		display_message_overwrite("Powering Electrodes");
+		power_electrodes(1, electrode_power_status);
+	}
+
+}
+
+void display_gas_parameters(void)
+{
+	sprintf(oled_buf2, "P: %.4fbar", gas1.gas_pressure);
+	display_message_overwrite(oled_buf2);
+	display1.cur_y += 10;
+	sprintf(oled_buf2, "Conc: %.2f%%", gas1.gas_concentration);
+	display_message(oled_buf2);
+	display1.cur_y += 10;
+	sprintf(oled_buf2, "Flow: %.2fL/min", gas1.gas_flowrate);
+	display_message(oled_buf2);
+	display1.cur_y += 10;
+	sprintf(oled_buf2, "Temp: %.2fdegC", gas1.gas_temperature);
+	display_message(oled_buf2);
+}
+
