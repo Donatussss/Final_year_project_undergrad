@@ -20,15 +20,15 @@ char oled_buf2[100];
 
 int check_buf(void)
 {
-    for (int i = 0; i < GASRXBUFSIZE; i++)
-    {
-        if ((gasRxBuffer[i] == 0x16) && (gasRxBuffer[i + 1] == 0x09) && (gasRxBuffer[i + 2] == 0x01))
-        	return 1;
-        if (i > 0)
-        	break;
-    }
+	for (int i = 0; i < GASRXBUFSIZE; i++)
+	{
+		if ((gasRxBuffer[i] == 0x16) && (gasRxBuffer[i + 1] == 0x09) && (gasRxBuffer[i + 2] == 0x01))
+			return 1;
+		if (i > 0)
+			break;
+	}
 
-    return 0;
+	return 0;
 }
 
 
@@ -37,50 +37,50 @@ void get_oxygen_params(void)
 	gas_counter = 0;
 	gas_counter2 = 3;
 
-    if (check_buf())
-    {
-    	while (gas_counter < 3)
-    	{
-    		gas1.gas_params[gas_counter] = (gasRxBuffer[gas_counter2 + gas_counter] * 256 + gasRxBuffer[++gas_counter2 + gas_counter])/10.0;
-    		gas_counter++;
-    	}
-    }
+	if (check_buf())
+	{
+		while (gas_counter < 3)
+		{
+			gas1.gas_params[gas_counter] = (gasRxBuffer[gas_counter2 + gas_counter] * 256 + gasRxBuffer[++gas_counter2 + gas_counter])/10.0;
+			gas_counter++;
+		}
+	}
 
-    else
-    {
-        while (gas_counter < 3)
-        {
-        	gas1.gas_params[gas_counter] = 0;
-        	gas_counter++;
-        }
-    }
-    gas_bit_to_bar();
+	else
+	{
+		while (gas_counter < 3)
+		{
+			gas1.gas_params[gas_counter] = 0;
+			gas_counter++;
+		}
+	}
+	gas_bit_to_bar();
 }
 
 
 void gas_bit_to_bar(void)
 {
-    /* pressure sensor output is 4-20mA and takes input of 10-30VDC
-     * pressure sensor can measure 0-16bar
-     * atmospheric pressure is 1.01325bar
-     * 4mA is 1.01325bar and we can say 20mA is 16bar
-     * We can assume the pressure-current relationship is linear and use a formula
-     * y = mx + c
-     * m = (20-4)/(16-1) = (1/3)[mA/bar]
-     * with a defined resistance r, m can be (r/3)[mV/bar]
-     * voltage read from the drop across the resistor can be converted to pressure in bar
-     * x = y/m
-     * adc is 12bit thus has values from 0 to 4096
-     * adc max input voltage is 3.3V thus 0int=0V and 4096int=3.3V
-     * adc int to voltage -> voltage = int * 3.3/4096
-     * Using a resistance r:
-     * 	0bar is 4ma*r -> 4ma * 150R = 0.6V
-     * 	16bar is 20ma*r -> 20ma * 150R = 3V
-     */
+	/* pressure sensor output is 4-20mA and takes input of 10-30VDC
+	 * pressure sensor can measure 0-16bar
+	 * atmospheric pressure is 1.01325bar
+	 * 4mA is 1.01325bar and we can say 20mA is 16bar
+	 * We can assume the pressure-current relationship is linear and use a formula
+	 * y = mx + c
+	 * m = (20-4)/(16-1) = (1/3)[mA/bar]
+	 * with a defined resistance r, m can be (r/3)[mV/bar]
+	 * voltage read from the drop across the resistor can be converted to pressure in bar
+	 * x = y/m
+	 * adc is 12bit thus has values from 0 to 4096
+	 * adc max input voltage is 3.3V thus 0int=0V and 4096int=3.3V
+	 * adc int to voltage -> voltage = int * 3.3/4096
+	 * Using a resistance r:
+	 * 	0bar is 4ma*r -> 4ma * 150R = 0.6V
+	 * 	16bar is 20ma*r -> 20ma * 150R = 3V
+	 */
 	HAL_ADC_Start(&hadc1);
 	HAL_ADC_PollForConversion(&hadc1, 10);
 	*gasPressureBitBuffer = HAL_ADC_GetValue(&hadc1);
-    gas1.gas_pressure = ((*gasPressureBitBuffer) * (3.3 / 4096.0)) / (PRESSURE_R_DROP / 3.0);
+	gas1.gas_pressure = ((*gasPressureBitBuffer) * (3.3 / 4096.0)) / (PRESSURE_R_DROP / 3.0);
 }
 
 void power_electrodes(int power_direction, int *electrode_power_status)
