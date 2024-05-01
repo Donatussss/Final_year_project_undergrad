@@ -41,7 +41,7 @@ void get_oxygen_params(void)
 	{
 		while (gas_counter < 3)
 		{
-			gas1.gas_params[gas_counter] = (gasRxBuffer[gas_counter2 + gas_counter] * 256 + gasRxBuffer[++gas_counter2 + gas_counter])/10.0;
+			gas1.gas_params[gas_counter] = (gasRxBuffer[gas_counter2 + gas_counter] * 256 + gasRxBuffer[(++gas_counter2) + gas_counter])/10.0;
 			gas_counter++;
 		}
 	}
