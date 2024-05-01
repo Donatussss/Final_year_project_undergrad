@@ -31,6 +31,23 @@ void waterInitialization(){
 	}
 	power_electrodes(1, electrode_power_status);
 }
+
+void waterManagement(){
+	int current_min_1 = HAL_GPIO_ReadPin(Float_Chamber1_min_GPIO_Port, Float_Chamber1_min_Pin);
+	int current_max_1 = HAL_GPIO_ReadPin(Float_Chamber1_max_GPIO_Port, Float_Chamber1_max_Pin);
+	int current_min_2 = HAL_GPIO_ReadPin(Float_Chamber2_min_GPIO_Port, Float_Chamber2_min_Pin);
+	int current_max_2 = HAL_GPIO_ReadPin(Float_Chamber2_max_GPIO_Port, Float_Chamber2_max_Pin);
+	//		int current_min_3 = HAL_GPIO_ReadPin(Float_Chamber3_min_GPIO_Port, Float_Chamber3_min_Pin);
+	//		int current_max_3 = HAL_GPIO_ReadPin(Float_Chamber3_max_GPIO_Port, Float_Chamber3_max_Pin);
+	int current_min_4 = HAL_GPIO_ReadPin(Float_Chamber4_min_GPIO_Port, Float_Chamber4_min_Pin);
+	int current_max_4 = HAL_GPIO_ReadPin(Float_Chamber4_max_GPIO_Port, Float_Chamber4_max_Pin);
+
+	waterLevel_Chamber_1(current_min_1, current_max_1);
+	waterLevel_Chamber_2(current_min_2, current_max_2);
+	//		waterLevel_Chamber_3(current_min_3, current_max_3);
+	waterLevel_Chamber_4(current_min_4, current_max_4);
+}
+
 void waterLevel_Chamber_1(int chamberMin, int chamberMax){
 	if(chamberMin == 0){
 		HAL_GPIO_WritePin(Solenoid1_Output_GPIO_Port, Solenoid1_Output_Pin, 1);

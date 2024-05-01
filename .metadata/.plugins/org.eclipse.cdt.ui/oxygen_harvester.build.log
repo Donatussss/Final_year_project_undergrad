@@ -1,0 +1,24 @@
+01:50:12 **** Incremental Build of configuration Debug for project oxygen_harvester ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:183:21: warning: unused variable 'chamber_max_1' [-Wunused-variable]
+  183 |                 int chamber_max_1 = HAL_GPIO_ReadPin(Float_Chamber1_max_GPIO_Port, Float_Chamber1_max_Pin);
+      |                     ^~~~~~~~~~~~~
+../Core/Src/main.c:182:21: warning: unused variable 'chamber_min_1' [-Wunused-variable]
+  182 |                 int chamber_min_1 = HAL_GPIO_ReadPin(Float_Chamber1_min_GPIO_Port, Float_Chamber1_min_Pin);
+      |                     ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "oxygen_harvester.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\USER\Documents\Final_year_project_undergrad\Firmware\oxygen_harvester\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="oxygen_harvester.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: oxygen_harvester.elf
+ 
+arm-none-eabi-size  oxygen_harvester.elf 
+arm-none-eabi-objdump -h -S oxygen_harvester.elf  > "oxygen_harvester.list"
+   text	   data	    bss	    dec	    hex	filename
+  15232	     20	   1836	  17088	   42c0	oxygen_harvester.elf
+Finished building: default.size.stdout
+ 
+Finished building: oxygen_harvester.list
+ 
+
+01:50:14 Build Finished. 0 errors, 2 warnings. (took 2s.205ms)
+
