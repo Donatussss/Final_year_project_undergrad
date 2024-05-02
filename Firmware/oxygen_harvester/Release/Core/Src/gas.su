@@ -1,0 +1,6 @@
+../Core/Src/gas.c:21:5:check_buf	0	static
+../Core/Src/gas.c:61:6:gas_bit_to_bar	8	static
+../Core/Src/gas.c:35:6:get_oxygen_params	24	static
+../Core/Src/gas.c:86:6:power_electrodes	16	static
+../Core/Src/gas.c:95:6:manage_chambers	8	static
+../Core/Src/gas.c:132:6:display_gas_parameters	16	static
