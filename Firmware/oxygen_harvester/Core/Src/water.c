@@ -24,8 +24,13 @@ void waterInitialization(){
 		//		waterLevel_Chamber_3(initial_min_3, initial_max_3);
 		waterLevel_Chamber_4(initial_min_4, initial_max_4);
 
-		if (initial_max_1 == 1 && initial_max_2 == 1 && initial_max_4 == 1) {
-			display_message_overwrite("Done Initialization...");
+		if (initial_max_1 == 1 && initial_max_2 == 1) {
+			display_message_overwrite("Done");
+			display1.cur_y += 10;
+			display_message("Initialization...");
+			HAL_Delay(250);
+			display1.cur_y += 20;
+			display_message("System Starting...");
 			break;
 		}
 	}
@@ -37,14 +42,14 @@ void waterManagement(){
 	int current_max_1 = HAL_GPIO_ReadPin(Float_Chamber1_max_GPIO_Port, Float_Chamber1_max_Pin);
 	int current_min_2 = HAL_GPIO_ReadPin(Float_Chamber2_min_GPIO_Port, Float_Chamber2_min_Pin);
 	int current_max_2 = HAL_GPIO_ReadPin(Float_Chamber2_max_GPIO_Port, Float_Chamber2_max_Pin);
-	//		int current_min_3 = HAL_GPIO_ReadPin(Float_Chamber3_min_GPIO_Port, Float_Chamber3_min_Pin);
-	//		int current_max_3 = HAL_GPIO_ReadPin(Float_Chamber3_max_GPIO_Port, Float_Chamber3_max_Pin);
+	//	int current_min_3 = HAL_GPIO_ReadPin(Float_Chamber3_min_GPIO_Port, Float_Chamber3_min_Pin);
+	//	int current_max_3 = HAL_GPIO_ReadPin(Float_Chamber3_max_GPIO_Port, Float_Chamber3_max_Pin);
 	int current_min_4 = HAL_GPIO_ReadPin(Float_Chamber4_min_GPIO_Port, Float_Chamber4_min_Pin);
 	int current_max_4 = HAL_GPIO_ReadPin(Float_Chamber4_max_GPIO_Port, Float_Chamber4_max_Pin);
 
 	waterLevel_Chamber_1(current_min_1, current_max_1);
 	waterLevel_Chamber_2(current_min_2, current_max_2);
-	//		waterLevel_Chamber_3(current_min_3, current_max_3);
+	//	waterLevel_Chamber_3(current_min_3, current_max_3);
 	waterLevel_Chamber_4(current_min_4, current_max_4);
 }
 

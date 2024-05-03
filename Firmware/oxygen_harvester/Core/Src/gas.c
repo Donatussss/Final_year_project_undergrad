@@ -87,7 +87,7 @@ void power_electrodes(int power_direction, int *electrode_power_status)
 {
 	HAL_GPIO_WritePin(Electrode1_Output_GPIO_Port, Electrode1_Output_Pin, power_direction);
 	HAL_GPIO_WritePin(Electrode2_Output_GPIO_Port, Electrode2_Output_Pin, power_direction);
-	HAL_GPIO_WritePin(Electrode3_Output_GPIO_Port, Electrode3_Output_Pin, power_direction);
+//	HAL_GPIO_WritePin(Electrode3_Output_GPIO_Port, Electrode3_Output_Pin, power_direction);
 	HAL_GPIO_WritePin(Electrode4_Output_GPIO_Port, Electrode4_Output_Pin, power_direction);
 	*electrode_power_status = 1;
 }
