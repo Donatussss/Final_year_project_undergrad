@@ -14,7 +14,7 @@ typedef struct
 {
 	uint8_t cur_y;
 	uint8_t cur_x;
-	char oled_buf[100];
+	char oled_buf[200];
 }Display_t;
 
 extern Display_t display1;

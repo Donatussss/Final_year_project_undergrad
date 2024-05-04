@@ -10,13 +10,14 @@
 #include "gas.h"
 #include "ssd1306_funcs.h"
 #include "stdio.h"
+#include "ssd1306.h"
 
 int gas_counter = 0;
 int gas_counter2 = 0;
 uint8_t gasRxBuffer[GASRXBUFSIZE];
 uint32_t gasPressureBitBuffer[1];
 GAS_t gas1;
-char oled_buf2[100];
+char oled_buf2[200];
 
 int check_buf(void)
 {
@@ -131,16 +132,24 @@ void manage_chambers(void)
 
 void display_gas_parameters(void)
 {
+	ssd1306_Fill(Black);
+	ssd1306_SetCursor(0, 0);
+	memset(oled_buf2, 0, sizeof(oled_buf2));
 	sprintf(oled_buf2, "P: %.4fbar", gas1.gas_pressure);
-	display_message_overwrite(oled_buf2);
-	display1.cur_y += 10;
+	ssd1306_WriteString(oled_buf2, Font_7x10, White);
+
+	ssd1306_SetCursor(0, 10);
+	memset(oled_buf2, 0, sizeof(oled_buf2));
 	sprintf(oled_buf2, "Conc: %.2f%%", gas1.gas_concentration);
-	display_message(oled_buf2);
-	display1.cur_y += 10;
+	ssd1306_WriteString(oled_buf2, Font_7x10, White);
+	ssd1306_SetCursor(0, 20);
+	memset(oled_buf2, 0, sizeof(oled_buf2));
 	sprintf(oled_buf2, "Flow: %.2fL/min", gas1.gas_flowrate);
-	display_message(oled_buf2);
-	display1.cur_y += 10;
+	ssd1306_WriteString(oled_buf2, Font_7x10, White);
+	ssd1306_SetCursor(0, 30);
+	memset(oled_buf2, 0, sizeof(oled_buf2));
 	sprintf(oled_buf2, "Temp: %.2fdegC", gas1.gas_temperature);
-	display_message(oled_buf2);
+	ssd1306_WriteString(oled_buf2, Font_7x10, White);
+	ssd1306_UpdateScreen();
 }
 

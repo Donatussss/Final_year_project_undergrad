@@ -30,7 +30,8 @@ Core/Src/gas.o: ../Core/Src/gas.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/gas.h ../Core/Inc/ssd1306_funcs.h
+ ../Core/Inc/gas.h ../Core/Inc/ssd1306_funcs.h ../Core/Inc/ssd1306.h \
+ ../Core/Inc/ssd1306_conf.h ../Core/Inc/ssd1306_fonts.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -65,3 +66,6 @@ Core/Src/gas.o: ../Core/Src/gas.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Core/Inc/gas.h:
 ../Core/Inc/ssd1306_funcs.h:
+../Core/Inc/ssd1306.h:
+../Core/Inc/ssd1306_conf.h:
+../Core/Inc/ssd1306_fonts.h:
