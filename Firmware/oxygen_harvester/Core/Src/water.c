@@ -56,7 +56,7 @@ void waterManagement(){
 }
 
 void waterLevel_Chamber_1(int chamberMin, int chamberMax){
-	if(chamberMin == 0 && chamberMax == 0){
+	if(chamberMax == 0){
 		HAL_GPIO_WritePin(Solenoid1_Output_GPIO_Port, Solenoid1_Output_Pin, 1);
 	}
 	if(chamberMax == 1){
@@ -66,7 +66,8 @@ void waterLevel_Chamber_1(int chamberMin, int chamberMax){
 }
 
 void waterLevel_Chamber_2(int chamberMin, int chamberMax){
-	if(chamberMin == 0 && chamberMax == 0){
+//	if(chamberMin == 0 && chamberMax == 0){
+	if(chamberMax == 0){
 		HAL_GPIO_WritePin(Solenoid2_Output_GPIO_Port, Solenoid2_Output_Pin, 1);
 	}
 	if(chamberMax == 1){
@@ -76,7 +77,7 @@ void waterLevel_Chamber_2(int chamberMin, int chamberMax){
 }
 
 void waterLevel_Chamber_3(int chamberMin, int chamberMax){
-	if(chamberMin == 0 && chamberMax == 0){
+	if(chamberMax == 0){
 		HAL_GPIO_WritePin(Solenoid3_Output_GPIO_Port, Solenoid3_Output_Pin, 1);
 	}
 	if(chamberMax == 1){
@@ -86,7 +87,7 @@ void waterLevel_Chamber_3(int chamberMin, int chamberMax){
 }
 
 void waterLevel_Chamber_4(int chamberMin, int chamberMax){
-	if(chamberMin == 0 && chamberMax == 0){
+	if(chamberMax == 0){
 		HAL_GPIO_WritePin(Solenoid4_Output_GPIO_Port, Solenoid4_Output_Pin, 1);
 	}
 	if(chamberMax == 1){
