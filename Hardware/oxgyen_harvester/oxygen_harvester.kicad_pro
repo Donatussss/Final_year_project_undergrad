@@ -605,7 +605,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "oxygen_harvester_gerber",
+      "plot": "oxygen_harvester_gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",

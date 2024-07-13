@@ -152,9 +152,9 @@ int main(void)
 	while (1)
 	{
 		/* GAS CODE BEGIN WHILE */
-//		waterManagement();
+		waterManagement();
 		get_oxygen_params();
-		//		manage_chambers();
+		manage_chambers();
 		display_gas_parameters();
 		HAL_Delay(100);
 		/* GAS CODE END WHILE */

@@ -1,4 +1,4 @@
-# Water and Gas monitoring for automated oxygen production through electrolysis
+# Water and Gas monitoring for automated oxygen and hydrogen production through electrolysis
 
 ### Project Aims
 - Meet oxygen demand in hospitals

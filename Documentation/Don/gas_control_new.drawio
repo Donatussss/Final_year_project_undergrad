@@ -1,0 +1,250 @@
+<mxfile host="app.diagrams.net" modified="2024-06-27T20:34:08.744Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="3BU5QnmclrnK5-13-owr" version="24.6.3" type="device" pages="3">
+  <diagram name="Page-1" id="9wtY8-yc6XU-4dn8Sxta">
+    <mxGraphModel dx="1100" dy="633" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-29" value="START" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="429.19" y="120" width="75" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-30" value="gas_flowrate = read_flowrate()&lt;div&gt;gas_concentration = read_concentration()&lt;br&gt;&lt;div&gt;gas_temperature = read_temperature()&lt;/div&gt;&lt;/div&gt;&lt;div&gt;gas_pressure = read_pressure()&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="344.29" y="230" width="244.81" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-31" value="&lt;h1&gt;Gas flowrate, concentration, temperature&amp;nbsp; and pressure regulation function&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="173.5" y="20" width="540" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-33" target="lLiDRZFsGICRwQAsLlPr-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-33" value="if gas_pressure &amp;lt; max_gas_pressure&lt;br&gt;&amp;amp;&amp;amp; gas_pressure &amp;gt;= min_gas_pressure&lt;div&gt;&amp;amp;&amp;amp;&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;gas_flowrate &amp;lt; max_gas_flowrate&lt;/span&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&amp;amp;&amp;amp; gas_concentration &amp;gt;= min_gas_concentration&lt;/div&gt;&lt;div&gt;&amp;amp;&amp;amp; gas_temperature &amp;lt; max_gas_temperature&lt;/div&gt;&lt;div&gt;&amp;amp;&amp;amp; gas_temperature &amp;gt;= min_gas_temperature&amp;nbsp;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="215.4" y="330" width="502.59" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-34" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="448.01" y="910" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-35" value="power on electrodes" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="405.09999999999997" y="620" width="123.19" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-36" value="power off electrodes" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="406.41999999999996" y="860" width="123.19" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-38" target="lLiDRZFsGICRwQAsLlPr-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-38" value="if electrode_status == OFF" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="376.69" y="520" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-40" value="if electrode_status == ON" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="377.62" y="760" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-41" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-33" target="lLiDRZFsGICRwQAsLlPr-40">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="482.1" y="750" as="sourcePoint" />
+            <mxPoint x="532.1" y="700" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="752.1" y="415" />
+              <mxPoint x="752.5" y="730" />
+              <mxPoint x="467.5" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-42" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="447.62" y="670" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-43" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-35" target="lLiDRZFsGICRwQAsLlPr-42">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="472.1" y="710" as="sourcePoint" />
+            <mxPoint x="522.1" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-44" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-38" target="lLiDRZFsGICRwQAsLlPr-42">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="472.1" y="710" as="sourcePoint" />
+            <mxPoint x="522.1" y="660" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="592.5" y="560" />
+              <mxPoint x="592.5" y="690" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-46" target="lLiDRZFsGICRwQAsLlPr-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-46" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="158" y="670" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-47" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-42" target="lLiDRZFsGICRwQAsLlPr-46">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="582.5" y="760" as="sourcePoint" />
+            <mxPoint x="632.5" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-48" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-40" target="lLiDRZFsGICRwQAsLlPr-36">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="582.5" y="760" as="sourcePoint" />
+            <mxPoint x="632.5" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-49" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-36" target="lLiDRZFsGICRwQAsLlPr-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="582.5" y="760" as="sourcePoint" />
+            <mxPoint x="632.5" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-50" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-40" target="lLiDRZFsGICRwQAsLlPr-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="582.5" y="760" as="sourcePoint" />
+            <mxPoint x="632.5" y="710" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="592.5" y="800" />
+              <mxPoint x="592.5" y="930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-51" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-34" target="lLiDRZFsGICRwQAsLlPr-46">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="582.5" y="760" as="sourcePoint" />
+            <mxPoint x="632.5" y="710" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="178.5" y="930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-52" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-30" target="lLiDRZFsGICRwQAsLlPr-33">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="582.5" y="390" as="sourcePoint" />
+            <mxPoint x="632.5" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-54" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-29" target="lLiDRZFsGICRwQAsLlPr-30">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="692.5" y="450" as="sourcePoint" />
+            <mxPoint x="467.0999999999997" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-55" value="Display system status" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="117.99999999999997" y="530" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lLiDRZFsGICRwQAsLlPr-56" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lLiDRZFsGICRwQAsLlPr-55" target="lLiDRZFsGICRwQAsLlPr-30">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="602.5" y="540" as="sourcePoint" />
+            <mxPoint x="652.5" y="490" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="179" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="9WTK1j1jgPqh7B-Y9_wF" name="Page-2">
+    <mxGraphModel dx="880" dy="506" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Eefuiv3bhDSm4PYq0Qa6-1" value="STM32F411CEU6" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="340" y="240" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Eefuiv3bhDSm4PYq0Qa6-2" value="GAS PRESSURE SENSOR" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="140" y="255" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Eefuiv3bhDSm4PYq0Qa6-3" value="ELECTRODE RELAYS" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="200" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Eefuiv3bhDSm4PYq0Qa6-4" value="GAS FLOWRATE, CONCENTRATION AND TEMPERATURE SENSOR" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="340" y="385" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Eefuiv3bhDSm4PYq0Qa6-5" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Eefuiv3bhDSm4PYq0Qa6-2" target="Eefuiv3bhDSm4PYq0Qa6-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="315" as="sourcePoint" />
+            <mxPoint x="450" y="265" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Eefuiv3bhDSm4PYq0Qa6-6" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Eefuiv3bhDSm4PYq0Qa6-1" target="Eefuiv3bhDSm4PYq0Qa6-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="315" as="sourcePoint" />
+            <mxPoint x="450" y="265" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="530" y="263" />
+              <mxPoint x="530" y="235" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Eefuiv3bhDSm4PYq0Qa6-7" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Eefuiv3bhDSm4PYq0Qa6-1" target="Eefuiv3bhDSm4PYq0Qa6-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="315" as="sourcePoint" />
+            <mxPoint x="450" y="265" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o4Ssc2dzkgz9CVMnWhd--1" value="&lt;h1 style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;CONTROL SYSTEM BLOCK DIAGRAM&lt;/h1&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="195" y="30" width="450" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="o4Ssc2dzkgz9CVMnWhd--2" value="ELECTROLYTE LEVEL SENSORS" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="340" y="140" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="o4Ssc2dzkgz9CVMnWhd--3" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="o4Ssc2dzkgz9CVMnWhd--2" target="Eefuiv3bhDSm4PYq0Qa6-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430" y="340" as="sourcePoint" />
+            <mxPoint x="430" y="395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JHxG6qzWp7mgse5ABsbS-1" value="SOLENOID RELAYS" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="290" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JHxG6qzWp7mgse5ABsbS-2" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Eefuiv3bhDSm4PYq0Qa6-1" target="JHxG6qzWp7mgse5ABsbS-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="290" as="sourcePoint" />
+            <mxPoint x="450" y="240" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="530" y="308" />
+              <mxPoint x="530" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="bczPRIHJ-zC8pA-mvS5G" name="Page-3">
+    <mxGraphModel dx="880" dy="506" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nNtRc00JYIEyMTn1PVG0-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nNtRc00JYIEyMTn1PVG0-1" target="nNtRc00JYIEyMTn1PVG0-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nNtRc00JYIEyMTn1PVG0-1" value="Read system parameters&lt;div&gt;Apply system parameters to control algorithm&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290" y="220" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="orGX29eunUo7KTocIZQK-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="nNtRc00JYIEyMTn1PVG0-2" target="orGX29eunUo7KTocIZQK-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nNtRc00JYIEyMTn1PVG0-2" value="Power on or off electrodes" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="338" y="300" width="175" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nNtRc00JYIEyMTn1PVG0-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nNtRc00JYIEyMTn1PVG0-5" target="nNtRc00JYIEyMTn1PVG0-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nNtRc00JYIEyMTn1PVG0-5" value="START" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="395" y="140" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nNtRc00JYIEyMTn1PVG0-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="orGX29eunUo7KTocIZQK-1" target="nNtRc00JYIEyMTn1PVG0-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="415" y="290" as="sourcePoint" />
+            <mxPoint x="465" y="240" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="426" y="450" />
+              <mxPoint x="245" y="450" />
+              <mxPoint x="245" y="245" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xlsEtGrvrS_cvaUFNwG8-1" value="&lt;h1 style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;SIMPLIFIED AUTOMATED ELECTROLYSIS SYSTEM FLOWCHART&lt;/h1&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="115" y="40" width="615" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="orGX29eunUo7KTocIZQK-1" value="Display system status and parameters" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="338" y="370" width="175" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
